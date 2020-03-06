@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+    <ui:define name="title">Forms</ui:define>
+                
+    <ui:define name="content">
+    <h:form>
+        <div class="ui-g ui-fluid">
+        
+            <div class="ui-g-12 ui-lg-6">
+                <!-- Left Side -->
+                <div class="card card-w-title">
+                    <h1>InputText</h1>
+                    <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                       <h:panelGroup>
+								<p:outputLabel value="Matrícula" for="matricula" />
+								<p:inputText id="matricula"
+									value="#{funcionarioBean.funcionario.matricula}"
+									placeholder="Matrícula" required="true">
+									<f:validateLength maximum="10" />
+									<p:clientValidator event="keyup" />
+								</p:inputText>
+							</h:panelGroup>
+
+							<h:panelGroup>
+								<p:outputLabel value="Funcionário" for="nome" />
+								<p:inputText id="nome" 
+									value="#{funcionarioBean.funcionario.nome}" required="true" placeholder="Nome funcionário">
+									<f:validateLength maximum="80" />
+									<p:clientValidator event="keyup" />
+								</p:inputText>
+							</h:panelGroup>
+
+							<h:panelGroup>
+								<h:outputLabel value="Função *" for="funcao" />
+								<p:selectOneMenu id="funcao" style="margin-bottom:10px;"
+									required="true">
+									<f:selectItem itemLabel="Selecione..." />
+									<f:selectItems value="#{funcionarioBean.listaFuncao}"
+										var="funcao" itemLabel="#{funcao.descricao}"
+										itemValue="#{funcao}" />
+									<f:validateLength maximum="100" />
+									<p:clientValidator event="keyup" />
+								</p:selectOneMenu>
+							</h:panelGroup>
+							<h:panelGroup>
+								<h:outputLabel value="Setor *" for="setor" />
+								<p:selectOneMenu id="setor" style="margin-bottom:10px;"
+									required="true">
+									<f:selectItem itemLabel="Selecione..." />
+									<f:selectItems value="#{funcionarioBean.listaSetor}"
+										var="setor" itemLabel="#{setor.descricao}"
+										itemValue="#{setor}" />
+									<f:validateLength maximum="100" />
+									<p:clientValidator event="keyup" />
+								</p:selectOneMenu>
+								<h:message for="setor" />
+							</h:panelGroup>
+						</p:panelGrid>
+					</div>
+					<div class="card card-w-title">
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="ui-panelgrid-blank form-group">
+							
+							<p:commandButton value="Inserir" action="#{funcionarioBean.salvar}" 
+							validateClient="true"
+								process="@this" update="@form"
+								style="margin-bottom:10px;" />
+								
+							<p:button value="Cancelar" outcome="/rh/paineldefuncionarios"
+								style="margin-bottom:10px;" styleClass="secondary" />
+						</p:panelGrid>
+					</div>                    
+                </div>
+                </div>
+              </h:form>  
+   
+                     
+    </ui:define>
+
+</ui:composition>

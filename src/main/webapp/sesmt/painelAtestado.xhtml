@@ -1,0 +1,154 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title"></ui:define>
+
+	<ui:define name="head">
+		<script type="text/javascript">
+			//<![CDATA[
+			function skinChart() {
+				this.cfg.shadow = false;
+				this.cfg.title = '';
+				this.cfg.seriesColors = [ '#FFC107', '#03A9F4' ];
+				this.cfg.grid = {
+					background : '#ffffff',
+					borderColor : '#ffffff',
+					gridLineColor : '#EEEEEE',
+					shadow : false
+				};
+				this.cfg.axesDefaults = {
+					rendererOptions : {
+						textColor : '#212121'
+					}
+				};
+				this.cfg.seriesDefaults = {
+					shadow : false,
+					lineWidth : 1,
+					markerOptions : {
+						shadow : false,
+						size : 7,
+						style : 'circle'
+					}
+				}
+			}
+			//]]>
+		</script>
+		<style type="text/css">
+.main-content {
+	padding: 0;
+}
+</style>
+	</ui:define>
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewAction action="#{atestadoBean.listaAtestado}" />
+		</f:metadata>
+		<h:form>
+			<div class="ui-g dashboard">
+				<div class="ui-g-12 ui-md-4">
+					<div class="card overview">
+						<div class="overview-content clearfix">
+							<span class="overview-title">Atestados Lançados</span>
+							<h3>Total:</h3>
+							<span class="overview-detail">45</span>
+						</div>
+						<div class="overview-footer">
+							<p:graphicImage name="images/dashboard/sales.svg"
+								library="ultima-layout" style="width: 100%" />
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-12 ui-md-4">
+					<div class="card overview">
+						<div class="overview-content clearfix">
+							<span class="overview-title">Expirados</span>
+							<h3>Total:</h3>
+							<span class="overview-detail">6</span>
+						</div>
+						<div class="overview-footer">
+							<p:graphicImage name="images/dashboard/sales.svg"
+								library="ultima-layout" style="width: 100%" />
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-12 ui-md-4">
+					<div class="card overview">
+						<div class="overview-content clearfix">
+							<span class="overview-title">Para o INSS</span>
+							<h3>Total:</h3>
+							<span class="overview-detail">9</span>
+						</div>
+						<div class="overview-footer">
+							<p:graphicImage name="images/dashboard/sales.svg"
+								library="ultima-layout" style="width: 100%" />
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-g-12 ui-md-12">
+					<div class="card">
+						<p:dataTable id="painel_atestado"
+							value="#{atestadoBean.listaAtestado}" var="atestado"
+							selectionMode="single" selection="#{atestadoBean.atestado}"
+							rowKey="#{atestado.id}" paginator="true" rows="10"
+							paginatorPosition="bottom" style="margin-bottom:20px">
+							
+							<f:facet name="header">Painel de Atestados</f:facet>
+							<p:column headerText="ID" sortBy="#{atestado.id}">
+								<h:outputText value="#{atestado.id}" />
+							</p:column>
+
+							<p:column headerText="Protocolo" sortBy="#{atestado.protocolo}">
+								<h:outputText value="#{atestado.protocolo}" />
+							</p:column>
+
+							<p:column headerText="Dt.Cadastro"
+								sortBy="#{atestado.dtCadastro}">
+								<h:outputText value="#{atestado.dtCadastro}" />
+							</p:column>
+
+							<p:column headerText="Matrícula"
+								sortBy="#{atestado.matricula}">
+								<h:outputText value="#{atestado.matricula}" />
+							</p:column>
+
+							<p:column headerText="Funcionário"
+								sortBy="#{atestado.funcionario}">
+								<h:outputText value="#{atestado.nomeFuncionario}" />
+							</p:column>
+
+							<p:column headerText="CID.10" sortBy="#{atestado.cid10}">
+								<h:outputText value="#{atestado.cid10}" />
+							</p:column>
+
+							<p:column headerText="Dt.Início" sortBy="#{atestado.dtDiaInicio}">
+								<h:outputText value="#{atestado.dtDiaInicio}" />
+							</p:column>
+
+							<p:column headerText="Dt.Final" sortBy="#{atestado.dtDiaFim}">
+								<h:outputText value="#{atestado.dtDiaFim}" />
+							</p:column>
+
+							<p:column headerText="Qtidd.Dias" sortBy="#{atestado.qtidadeDia}">
+								<h:outputText value="#{atestado.qtidadeDia}" />
+							</p:column>
+
+							<p:column headerText="PDF">
+								<h:outputText />
+							</p:column>
+
+							<!-- Visualizar Modificações -->
+							<p:column headerText="Histórico">
+								<h:outputText />
+							</p:column>
+						</p:dataTable>
+					</div>
+
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

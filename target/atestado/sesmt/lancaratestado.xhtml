@@ -1,0 +1,164 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:event listener="#{atestadoBean.inicializar}" type="preRenderView" />
+		</f:metadata>
+		<h:form id="formatestado">
+			<p:messages autoUpdate="true" />
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12 ui-lg-12">
+					<!-- Left Side -->
+					<div class="card card-w-title">
+						<h1>Lançar Atestado</h1>
+						<p:panelGrid columns="3" layout="grid" rendered="true"
+							styleClass="ui-panelgrid-blank form-group">
+							<h:panelGroup>
+								<p:outputLabel value="Cadastro" for="dtCadastro" />
+								<p:calendar id="dtCadastro" value="#{atestadoBean.atestado.dtCadastro}"
+									 pattern="dd/MM/yyyy HH:mm" disabled="true"/>								
+							</h:panelGroup>
+
+							<h:panelGroup>
+								<p:outputLabel value="Matrícula" for="matricula" />
+								<p:autoComplete id="matricula"
+									value="#{atestadoBean.atestado.matricula}"
+									completeMethod="#{atestadoBean.retornarMatricula}"
+									converter="#{atestadoBean.funcionarioConverterMatricula}"
+									var="funcionario" itemLabel="#{funcionario.matricula}"
+									 itemValue="#{funcionario}"
+									placeholder="Matrícula"/>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:outputLabel value="Funcionário" for="funcionario" />
+								<p:autoComplete id="funcionario"
+									value="#{atestadoBean.atestado.nomeFuncionario}"
+									completeMethod="#{atestadoBean.completarPesquisa}"
+									converter="#{atestadoBean.funcionarioConverterComplete}"
+									var="funcionario" itemLabel="#{funcionario.nome}" itemValue="#{funcionario}"
+										placeholder="Funcionario" required="true"/>								
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:outputLabel value="CID" for="cid" />
+								<p:inputText id="cid" value="#{atestadoBean.atestado.cid10}"
+									placeholder="Informe o CID10" required="true"/>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:outputLabel value="Data Inicial" for="dtinicio" />
+								<p:calendar id="dtinicio"
+									value="#{atestadoBean.atestado.dtDiaInicio}" pattern="dd/MM/yyyy"
+									placeholder="Início" required="true"/>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:outputLabel value="Data Final" for="dtfinal" />
+								<p:calendar id="dtfinal"
+									value="#{atestadoBean.atestado.dtDiaFim}"  pattern="dd/MM/yyyy" 
+										placeholder="Fim" required="true">
+										</p:calendar>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:outputLabel value="Dias"/>
+								<p:inputText id="qtidadedias"
+									value="#{atestadoBean.atestado.qtidadeDia}" placeholder="Dias" required="true">																										
+										<f:convertNumber type="number" minFractionDigits="1" maxFractionDigits="3"/>
+									</p:inputText>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:outputLabel value="Unidade Hospitalar"
+									for="unidadehospitalar" />
+								<p:inputText id="unidadehospitalar"
+									value="#{atestadoBean.atestado.unidHosp}"
+									placeholder="Nome da unidade" required="true"/>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:outputLabel value="Médico" for="medico" />
+								<p:inputText id="medico"
+									value="#{atestadoBean.atestado.profMedico}"
+									placeholder="Nome do médico" required="true"/>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:outputLabel value="Número Conselho" for="numconselho" />
+								<p:inputText id="numconselho"
+									value="#{atestadoBean.atestado.numconselho}"
+									placeholder="Numero do conselho" required="true">
+										<f:convertNumber type="number"/>
+									</p:inputText>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:outputLabel value="Conselho" for="tipoconselho" />
+								<p:selectOneMenu id="tipoconselho"
+									value="#{atestadoBean.atestado.tipoconselho}"
+									style="margin-bottom:10px;" required="true">
+									<f:selectItem itemLabel="Selecione..."/>
+									<f:selectItem itemLabel="CRM" itemValue="CRM" />
+									<f:selectItem itemLabel="CRO" itemValue="CRO" />
+									<f:selectItem itemLabel="CRP" itemValue="CRP" />
+								</p:selectOneMenu>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:outputLabel value="UF" for="uf" />
+								<p:selectOneMenu id="uf" value="#{atestadoBean.atestado.uf}" required="true"
+									style="margin-bottom:10px;">
+									<f:selectItem itemLabel="Selecione..."/>
+									<f:selectItem itemLabel="AC" itemValue="AC" />
+									<f:selectItem itemLabel="AC" itemValue="AC" />
+									<f:selectItem itemLabel="AL" itemValue="AL" />
+									<f:selectItem itemLabel="AP" itemValue="AP" />
+									<f:selectItem itemLabel="BA" itemValue="BA" />
+									<f:selectItem itemLabel="CE" itemValue="CE" />
+									<f:selectItem itemLabel="DF" itemValue="DF" />
+									<f:selectItem itemLabel="ES" itemValue="ES" />
+									<f:selectItem itemLabel="GO" itemValue="GO" />
+									<f:selectItem itemLabel="MA" itemValue="MA" />
+									<f:selectItem itemLabel="MS" itemValue="MS" />
+									<f:selectItem itemLabel="MT" itemValue="MT" />
+									<f:selectItem itemLabel="PA" itemValue="PA" />
+									<f:selectItem itemLabel="PB" itemValue="PB" />
+									<f:selectItem itemLabel="PE" itemValue="PE" />
+									<f:selectItem itemLabel="PI" itemValue="PE" />
+									<f:selectItem itemLabel="PR" itemValue="PR" />
+									<f:selectItem itemLabel="RJ" itemValue="RJ" />
+									<f:selectItem itemLabel="RN" itemValue="RN" />
+									<f:selectItem itemLabel="RO" itemValue="RO" />
+									<f:selectItem itemLabel="RR" itemValue="RR" />
+									<f:selectItem itemLabel="RS" itemValue="RS" />
+									<f:selectItem itemLabel="SC" itemValue="SC" />
+									<f:selectItem itemLabel="SP" itemValue="SP" />
+									<f:selectItem itemLabel="TO" itemValue="TO" />
+								</p:selectOneMenu>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:outputLabel value="Observação" for="observacao" />
+								<p:inputTextarea id="observacao"
+									value="#{atestadoBean.atestado.observacao}"
+									placeholder="Obsevação" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:fileUpload
+									fileUploadListener="#{fileUploadView.handleFileUpload}"
+									mode="simple" dragDropSupport="false" multiple="true"
+									update="messages" sizeLimit="100000" fileLimit="3"
+									allowTypes="/(\.|\/)(pdf)$/" style="width:100%" required="true"/>
+
+								<p:growl id="messages" showDetail="true" />
+							</h:panelGroup>
+
+						</p:panelGrid>
+					</div>
+					<div class="card card-w-title">
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="ui-panelgrid-blank form-group">
+							<p:commandButton value="Inserir" action="#{atestadoBean.salvar}" />
+							<p:commandButton type="button" value="Cancelar"
+									style="margin-bottom:10px;" styleClass="secondary" />
+						</p:panelGrid>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

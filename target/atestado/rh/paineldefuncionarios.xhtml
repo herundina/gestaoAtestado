@@ -1,0 +1,117 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title"></ui:define>
+
+	<ui:define name="head">
+		<script type="text/javascript">
+			//<![CDATA[
+			function skinChart() {
+				this.cfg.shadow = false;
+				this.cfg.title = '';
+				this.cfg.seriesColors = [ '#FFC107', '#03A9F4' ];
+				this.cfg.grid = {
+					background : '#ffffff',
+					borderColor : '#ffffff',
+					gridLineColor : '#EEEEEE',
+					shadow : false
+				};
+				this.cfg.axesDefaults = {
+					rendererOptions : {
+						textColor : '#212121'
+					}
+				};
+				this.cfg.seriesDefaults = {
+					shadow : false,
+					lineWidth : 1,
+					markerOptions : {
+						shadow : false,
+						size : 7,
+						style : 'circle'
+					}
+				}
+			}
+			//]]>
+		</script>
+		<style type="text/css">
+.main-content {
+	padding: 0;
+}
+</style>
+	</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewAction action="#{funcionarioBean.listaFuncionarios}" />
+		</f:metadata>
+		<h:form>
+			<div class="ui-g dashboard">
+				<div class="ui-g-12 ui-md-12">
+					<div class="card">
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="ui-panelgrid-blank form-group">
+							<h:panelGroup>
+								<p:button value="Cadastrar" iconPost="left" icon="ui-icon-plus"
+									style="margin-bottom:10px;" outcome="/rh/cadastrofuncionario" />
+							</h:panelGroup>
+							<h:panelGroup>
+								<li class="search-item">
+								<p:inputText value="#{funcionarioBean.pesquisa}" 
+									placeholder="Pesquisar Funcionario" /> 
+								<p:commandButton
+										value="Pesquisar" 
+										actionListener="#{funcionarioBean.pesquisar}"
+										update="tb_funcionario" iconPost="right" icon="ui-icon-search"
+										style="margin-bottom:10px;" /></li>
+							</h:panelGroup>
+						</p:panelGrid>
+					</div>
+				</div>
+				<div class="ui-g-12 ui-md-12">
+					<div class="card">
+						<p:dataTable id="tb_funcionario" value="#{funcionarioBean.listaFuncionarios}"
+							 var="funcionario" 
+							 selectionMode="single" selection="#{funcionarioBean.funcionario}"
+							 rowKey="#{funcionario.id}"
+							emptyMassage="Nenhuma informação cadastrada" paginator="true"
+							rows="10" paginatorPosition="bottom" style="margin-bottom:20px">
+							<f:facet name="header">Funcionários Cadastrados</f:facet>
+							<p:column headerText="Código" sortBy="#{funcionario.id}">
+								<h:outputText value= "#{funcionario.id}"/>
+							</p:column>
+							
+							<p:column headerText="Matrícula"
+								sortBy="#{funcionario.matricula}">
+								<h:outputText value="#{funcionario.matricula}" />
+							</p:column>
+
+							<p:column headerText="Nome" sortBy="#{funcionario.nome}">
+								<h:outputText value="#{funcionario.nome}" />
+							</p:column>
+
+							<p:column headerText="Função" sortBy="#{funcionario.funcao}">
+								<h:outputText value="#{funcionario.funcao.descricao}" />
+							</p:column>
+
+							<p:column headerText="Setor" sortBy="#{funcionario.setor}">
+								<h:outputText value="#{funcionario.setor.descricao}" />
+							</p:column>
+
+							<p:column headerText="Editar">
+								<p:commandButton icon="fa fa-edit"
+									action="#{funcionarioBean.atualizarCadastro}"/>
+							</p:column>
+
+							<p:column headerText="Inativar">
+								<p:commandButton icon="fa fa-eye-slash"/>
+							</p:column>
+						</p:dataTable>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
